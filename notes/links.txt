@@ -1,0 +1,8 @@
+# PROMETHEUS
+
+https://www.server-world.info/en/note?os=CentOS_Stream_9&p=prometheus&f=1
+
+# RABBITMQ
+https://www.rabbitmq.com/docs/install-rpm
+
+# NGINX
