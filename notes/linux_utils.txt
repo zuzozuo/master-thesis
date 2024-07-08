@@ -1,0 +1,37 @@
+# hostname change 
+hostnamectl set-hostname supername
+
+
+# network card settings
+nmcli con add type ethernet con-name eth1 ifname eth1 ipv4.addresses 10.10.00.x/24 ipv4.gateway 10.10.0.1 ipv4.dns "8.8.8.8 8.8.4.4" ipv4.method manual
+nmcli connection modify eth1 ipv4.never-default yes
+
+
+# golang installation
+dnf -y install go-toolset 
+go version
+
+
+cat > helloworld.go <<'EOF'
+package main
+import "fmt"
+func main() {
+    fmt.Println("Hello Go World !")
+}
+EOF 
+
+go run helloworld.go 
+
+go build helloworld.go 
+
+
+# python installation
+
+# venv activation
+
+
+# RABBITMQ
+
+rabbitmqctl add_user USERNAME PASS
+rabbitmqctl set_user_tags USERNAME administrator
+rabbitmqctl set_permissions -p / USERNAME ".*" ".*" ".*"
