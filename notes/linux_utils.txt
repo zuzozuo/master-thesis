@@ -35,3 +35,15 @@ go build helloworld.go
 rabbitmqctl add_user USERNAME PASS
 rabbitmqctl set_user_tags USERNAME administrator
 rabbitmqctl set_permissions -p / USERNAME ".*" ".*" ".*"
+
+
+
+# SELINUX SETUP FOR PROM & GRAFANA ON THE SAME HOST
+setenforce 0
+ausearch -m avc -ts recent
+grep avc /var/log/audit/audit.log # look for entries related to prometheus & grafana
+
+ausearch -m avc -ts recent | sudo audit2allow -M prometheus_grafana_policy
+semodule -i prometheus_grafana_policy.pp
+setenforce 1
+semanage port -a -t http_port_t -p tcp 9090

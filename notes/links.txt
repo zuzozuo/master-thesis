@@ -1,8 +1,17 @@
 # PROMETHEUS
 
 https://www.server-world.info/en/note?os=CentOS_Stream_9&p=prometheus&f=1
+https://prometheus.io/docs/guides/node-exporter/
+
 
 # RABBITMQ
 https://www.rabbitmq.com/docs/install-rpm
+https://www.rabbitmq.com/docs/prometheus
+https://www.rabbitmq.com/docs/prometheus#overview-prometheus
 
 # NGINX
+
+# GRAFANA
+
+https://www.server-world.info/en/note?os=CentOS_Stream_9&p=grafana
+https://grafana.com/grafana/dashboards/10991-rabbitmq-overview/
