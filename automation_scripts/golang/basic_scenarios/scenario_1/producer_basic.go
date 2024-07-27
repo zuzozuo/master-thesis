@@ -18,6 +18,7 @@ func RunProducerBasic(params global.Scenario1Params) {
 	defer conn.Close()
 
 	ch, err := conn.Channel()
+
 	if err != nil {
 		log.Fatalf("Failed to open a channel: %v", err)
 	}
@@ -36,7 +37,7 @@ func RunProducerBasic(params global.Scenario1Params) {
 	}
 
 	for i := 0; i < params.MessageAmount; i++ {
-		body := fmt.Sprintf("Message %d", i)
+		body := fmt.Sprintf("Message %d:  %v", i, global.GenerateRandomString(20))
 		err = ch.Publish(
 			"",
 			q.Name,

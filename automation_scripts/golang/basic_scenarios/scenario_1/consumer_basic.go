@@ -2,8 +2,8 @@ package scenario_1
 
 import (
 	"fmt"
-	"log"
 	"strconv"
+	"time"
 
 	global "project/global"
 
@@ -12,15 +12,14 @@ import (
 
 func RunConsumerBasic() {
 	conn, err := amqp.Dial("amqp://" + global.USER + ":" + global.USER + "@" + global.ADDR + ":" + strconv.Itoa(global.RABBITMQ_PORT) + "/")
-	if err != nil {
-		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
-	}
+
+	global.FailOnError(err, "Failed to connect to RabbitMQ")
+
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	if err != nil {
-		log.Fatalf("Failed to open a channel: %v", err)
-	}
+
+	global.FailOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -31,9 +30,8 @@ func RunConsumerBasic() {
 		false,
 		nil,
 	)
-	if err != nil {
-		log.Fatalf("Failed to declare a queue: %v", err)
-	}
+
+	global.FailOnError(err, "Failed to declare queue")
 
 	msgs, err := ch.Consume(
 		q.Name,
@@ -44,15 +42,17 @@ func RunConsumerBasic() {
 		false,
 		nil,
 	)
-	if err != nil {
-		log.Fatalf("Failed to register a consumer: %v", err)
-	}
+
+	global.FailOnError(err, "Failed to register a consumer")
 
 	forever := make(chan bool)
 
 	go func() {
 		for d := range msgs {
 			fmt.Printf("Received: %s\n", d.Body)
+			// Simulate work
+			time.Sleep(1 * time.Second)
+			fmt.Printf("Done")
 		}
 	}()
 

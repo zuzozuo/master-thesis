@@ -24,8 +24,10 @@ func main() {
 
 	var scenarios = map[string]map[string]ScenarioFunc{
 		"scenario_1": {
-			"producer": func(params interface{}) { scenario_1.RunProducerBasic(params.(global.Scenario1Params)) },
-			"consumer": func(params interface{}) { scenario_1.RunConsumerBasic() },
+			"producer":    func(params interface{}) { scenario_1.RunProducerBasic(params.(global.Scenario1Params)) },
+			"consumer":    func(params interface{}) { scenario_1.RunConsumerBasic() },
+			"producer_op": func(params interface{}) { scenario_1.RunProducerOptimized(params.(global.Scenario1Params)) },
+			"consumer_op": func(params interface{}) { scenario_1.RunConsumerOptimized() },
 		},
 		// Zuz plz add more scenarios here later
 	}

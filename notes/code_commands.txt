@@ -1,0 +1,6 @@
+# scenario 1
+
+go run main.go -scenario=scenario_1 -role=producer -message_amount=3
+go run main.go -scenario=scenario_1 -role=producer_op -message_amount=3
+go run main.go -scenario=scenario_1 -role=consumer 
+go run main.go -scenario=scenario_1 -role=consumer_op 
