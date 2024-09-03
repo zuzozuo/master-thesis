@@ -1,12 +1,12 @@
 import os
+from consts import MESSAGE_SIZE, PRODUCER_CONSUMER
 
-CSV_HEADER = ['file_name', 'time (s)', 'sent (msg/s)', 'received (msg/s)', 'min (us)', 'median (us)', '75th (us)', '95th (us)', '99th (us)']
-TEST_AMOUNT = 10
+CSV_HEADER = ['file_name', 'time (s)', 'sent (msg/s)', 'received (msg/s)', 'min (s)', 'median (s)', '75th (s)', '95th (s)', '99th (s)']
 
-for x in range(0, TEST_AMOUNT):
+for x in MESSAGE_SIZE['FILE_NAMES']:
     try:
-        input_file_path = f'Z:\\test{x}.txt'
-        output_file_path = f'..\\..\\results\\basic\\result{x}.csv'
+        input_file_path = f'D:\\Studia\\PRACAMGR\\WYNIKI_TESTOW\\{MESSAGE_SIZE['DIR']}\\{x}'
+        output_file_path = f'D:\\Studia\\PRACAMGR\\EXCELKI_DO_MGR\\{MESSAGE_SIZE['DIR']}\\{x}.csv'
 
         if not os.path.exists(input_file_path):
             print(f"File not found: {input_file_path}")
@@ -23,12 +23,12 @@ for x in range(0, TEST_AMOUNT):
                     sent = tmp[2].split()[1].replace(".", ",")
                     received = tmp[3].split()[1].replace(".", ",")
                     latency = tmp[4].split()[3].split('/')
-                    min_latency = latency[0]
-                    median = latency[1]
-                    seventy_fifth = latency[2]
-                    ninety_fifth = latency[3]
-                    ninety_ninth = latency[4]
-
+                    min_latency = str(int(latency[0])/1000000)
+                    median = str(int(latency[1])/1000000)
+                    seventy_fifth = str(int(latency[2])/1000000)
+                    ninety_fifth = str(int(latency[3])/1000000)
+                    ninety_ninth = str(int(latency[4])/1000000)
+                    
                     # Write directly to the output file
                     output_file.write(';'.join([test_name, time, sent, received, min_latency, median, seventy_fifth, ninety_fifth, ninety_ninth]) + "\n")
     except FileNotFoundError:
